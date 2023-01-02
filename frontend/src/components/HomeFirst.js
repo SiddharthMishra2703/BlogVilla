@@ -18,7 +18,7 @@ export default function HomeFirst() {
           </div>
         </div>
         <div className="carousel-item">
-          <img src="/image/reading.jpg" className="d-block w-100" alt="Working" />
+          <img src="/image/reading-new.jpg" className="d-block w-100" alt="Working" />
           <div className="carousel-caption d-none d-md-block my-2 mx-auto">
             <h2 className='display-3 text-light mb-3'>Get Knowledge From Other People</h2>
             <p>Read and see what other people are writing and share your knowledge.</p>

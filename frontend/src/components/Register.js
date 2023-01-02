@@ -16,7 +16,7 @@ export default function Register() {
 
   let name, value;
   const handleInput = (e) => {
-    console.log(e);
+    // console.log(e);
     name = e.target.name;
     value = e.target.value;
 
@@ -57,9 +57,9 @@ export default function Register() {
 
   return (
     <>
-      <div className="container-sm">
+      <div className="container-sm mb-5 shadow rounded" style={{backgroundColor:"white"}}>
         <div className="text-center my-5">
-          <h1 className='text-success'>Register Now !</h1>
+          <h1 className='fw-bolder'>Register Now !</h1>
         </div>
         <div className="row g-0">
           <div className="col-md-5">
@@ -99,7 +99,7 @@ export default function Register() {
 
               <Link className='link-secondary' to="/login">I already have an account</Link>
               <div className="input-group flex-nowrap my-5">
-                <button type="submit" className="btn btn-outline-success" onClick={PostData} value="Register">Register</button>
+                <button type="submit" className="btn btn-outline-primary" onClick={PostData} value="Register">Register</button>
               </div>
             </form>
           </div>

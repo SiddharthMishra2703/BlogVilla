@@ -29,16 +29,16 @@ export default function Login() {
     } else {
       window.alert("Login Successfully");
 
-      navigate('/');
+      navigate('/dashboard');
     }
 
   }
 
   return (
     <>
-      <div className="container-sm">
+      <div className="container-sm my-auto shadow rounded" style={{backgroundColor:"white"}}>
         <div className="text-center mt-5">
-          <h1>Login Here !</h1>
+          <h1 className='fw-bolder'>Login Here !</h1>
         </div>
         <div className="row g-0">
           <div className="col-md-5">
@@ -59,7 +59,7 @@ export default function Login() {
 
               <Link className='link-secondary' to="/register">I'm new here! Create New Account.</Link>
               <div className="input-group flex-nowrap my-5">
-                <button type="submit" className="btn btn-outline-success" onClick={loginUser}>Login</button>
+                <button type="submit" className="btn btn-outline-primary" onClick={loginUser}>Login</button>
               </div>
             </form>
           </div>

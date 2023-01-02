@@ -6,8 +6,9 @@ export default function TextForm() {
   const navigate = useNavigate();
 
   const handleUpClick = () => {
-    // console.log("UpperCase was clicked " + text);
-    let newtext = text.toUpperCase();
+    //console.log("UpperCase was clicked " + text);
+    console.log(text);
+    let newtext = text.content.toUpperCase();
     setText(newtext);
   }
 
@@ -42,52 +43,62 @@ export default function TextForm() {
   const [text, setText] = useState({
     title: "",
     topic: "",
-    content: ""
+    content: "",
   });
 
   let name, value;
   const handleOnChange = (e) => {
     // console.log("Clicked");
-    console.log(e);
+    // console.log(e);
     name = e.target.name;
     value = e.target.value;
 
     setText({ ...text, [name]: value });
   }
 
+  // Fetch Api
   const PostData = async (e) => {
     e.preventDefault();
 
     const { title, topic, content } = text;
-    const res = await fetch('/writeblog', {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        title,
-        topic,
-        content
-      })
-    });
 
-    const data = await res.json();
+    try {
+      
+      const res = await fetch('/writeblog', {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          title,
+          topic,
+          content
+        })
+      });
+  
+      const data = await res.json();
+  
+      if (res.status === 422 || !data) {
+        window.alert("Invalid Blog");
+        console.log("Invalid Blog");
+      } else {
+        window.alert("Blog saved successfuly");
+        console.log("Blog saved successfuly");
+  
+        navigate('/dashboard');
+      }
 
-    if (res.status === 422 || !data) {
-      window.alert("Invalid Blog");
-      console.log("Invalid Blog");
-    } else {
-      window.alert("Blog saved successfuly");
-      console.log("Blog saved successfuly");
-
-      navigate('/dashboard')
+    } catch (err) {
+      console.log(err);
+      navigate('/login');
     }
   }
 
   return (
     <>
       <div className='container'>
-        <h1 className='my-4'> Create Your Own Blog</h1>
+        <h1 className='text-center fw-bolder my-4'> Create Your Own Blog</h1>
+        <form method="POST">
         <div className="row my-4">
           <div className="col-6">
             <div className="input-group flex-nowrap">
@@ -97,9 +108,12 @@ export default function TextForm() {
           <div className="col-6">
             <select className="form-select" value={text.topic} name='topic' onChange={handleOnChange} aria-label="Default select example">
               <option selected>Open this select menu</option>
-              <option value="1">One</option>
-              <option value="2">Two</option>
-              <option value="3">Three</option>
+              <option value="Fashion">Fashion</option>
+              <option value="Sports">Sports</option>
+              <option value="Technology">Technology</option>
+              <option value="Science And Devlopment">Science And Devlopment</option>
+              <option value="Politices">Politices</option>
+              <option value="Other">Other</option>
             </select>
           </div>
         </div>
@@ -107,12 +121,13 @@ export default function TextForm() {
           {/* <label htmlFor="MyBox" className="form-label">Example textarea</label> */}
           <textarea className="form-control" value={text.content} name='content' onChange={handleOnChange} id="MyBox" rows="10"></textarea>
         </div>
-        <button className="btn btn-primary mx-2 my-1" disabled={text.length === 0} onClick={handleUpClick}>Convert To UpperCase</button>
-        <button className="btn btn-primary mx-2 my-1" disabled={text.length === 0} onClick={handleLoClick}>Convert To LowerCase</button>
-        <button className="btn btn-primary mx-2 my-1" disabled={text.length === 0} onClick={handleFirstClick}>First Letter Capital</button>
-        <button className="btn btn-primary mx-2 my-1" disabled={text.length === 0} onClick={selectTextClick}>Select All</button>
-        <button className="btn btn-primary mx-2 my-1" disabled={text.length === 0} onClick={handleClearClick}>Clear</button>
-        <button className="btn btn-primary mx-2 my-1" disabled={text.length === 0} onClick={PostData}>Save</button>
+        </form>
+        <button className="btn btn-primary mx-2 my-1" onClick={handleUpClick}>Convert To UpperCase</button>
+        <button className="btn btn-primary mx-2 my-1" onClick={handleLoClick}>Convert To LowerCase</button>
+        <button className="btn btn-primary mx-2 my-1" onClick={handleFirstClick}>First Letter Capital</button>
+        <button className="btn btn-primary mx-2 my-1" onClick={selectTextClick}>Select All</button>
+        <button className="btn btn-primary mx-2 my-1" onClick={handleClearClick}>Clear</button>
+        <button className="btn btn-primary mx-2 my-1" onClick={PostData}>Save</button>
       </div>
       {/* <div className="container my-3">
         <h1>Text Summary</h1>
